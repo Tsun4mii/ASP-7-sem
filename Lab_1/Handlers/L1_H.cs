@@ -3,6 +3,8 @@ using System.Web;
 using Lab_1.Entites;
 using Json.Net;
 using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Lab_1.Handlers
 {
@@ -35,7 +37,7 @@ namespace Lab_1.Handlers
                 {
                     sum = result.result + temp.Peek();
                 }
-                string json = JsonNet.Serialize(JsonNet.Serialize(new Result(sum)));
+                string json = JsonNet.Serialize(new Result(sum));
                 context.Response.Write(json);
             }
             if(context.Request.HttpMethod == "POST")
@@ -43,6 +45,7 @@ namespace Lab_1.Handlers
                 int bodyVar = int.Parse(context.Request.Form.Get("result"));
                 result.result = bodyVar;
                 string json = JsonNet.Serialize(result);
+                context.Response.ContentType = "application/json";
                 context.Response.Write(json);
             }
             if(context.Request.HttpMethod == "PUT")

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <button onclick="handleGet()">GET</button>
+      <form id="postForm" onsubmit="handlePost(event)">
+        <label for="result">Number</label>
+        <input type="number" name="result" />
+        <input type="submit" value="POST" />
+      </form>
+      <form id="putForm" onsubmit="handlePut(event)">
+        <label for="result">Number add</label>
+        <input type="number" name="add" />
+        <input type="submit" value="PUT" />
+      </form>
+    </div>
+    <div id="result"></div>
+  </body>
+  <script>
+    function handleGet() {
+      let xml = new XMLHttpRequest();
+      xml.open("GET", "http://localhost:51234/syoGet", true);
+      xml.send();
+      xml.onreadystatechange = function df() {
+        if (xml.readyState != 4) {
+          return;
+        }
+        alert(xml.responseText);
+      };
+    }
+
+    function handlePost(event) {
+      event.preventDefault();
+      let xml = new XMLHttpRequest();
+      let data = new FormData(postForm);
+      xml.open("POST", "http://localhost:51234/syoGet", true);
+      xml.send(data);
+      xml.onreadystatechange = function df() {
+        if (xml.readyState != 4) {
+          return;
+        }
+        alert(xml.responseText);
+      };
+    }
+    function handlePut(event) {
+      event.preventDefault();
+      let xml = new XMLHttpRequest();
+      let data = new FormData(putForm);
+      xml.open("PUT", "http://localhost:51234/syoGet", true);
+      xml.send(data);
+      xml.onreadystatechange = function df() {
+        if (xml.readyState != 4) {
+          return;
+        }
+        alert(xml.responseText);
+      };
+    }
+  </script>
+</html>
